@@ -1,9 +1,5 @@
-"use client"
-
 import type React from "react"
-import { useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
-import { Eye, EyeOff } from "lucide-react"
 
 const ExtractedDataScreen: React.FC = () => {
   const location = useLocation()
@@ -26,7 +22,6 @@ const ExtractedDataScreen: React.FC = () => {
   }
 
   const parsedData = parseData(data)
-  const [passwordVisible, setPasswordVisible] = useState(false)
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
@@ -43,25 +38,7 @@ const ExtractedDataScreen: React.FC = () => {
           {Object.entries(parsedData).map(([key, value], index) => (
             <div key={index} className="border-b pb-2">
               <p className="font-semibold text-gray-700">{key}</p>
-              {key.toLowerCase() === "password" ? (
-                <div className="flex items-center">
-                  <p className="text-gray-800 mr-2">{passwordVisible ? value : "••••••••"}</p>
-                  <button
-                    type="button"
-                    onClick={() => setPasswordVisible(!passwordVisible)}
-                    className="p-1 rounded-full hover:bg-gray-100"
-                    aria-label={passwordVisible ? "Hide password" : "Show password"}
-                  >
-                    {passwordVisible ? (
-                      <EyeOff size={16} className="text-gray-500" />
-                    ) : (
-                      <Eye size={16} className="text-gray-500" />
-                    )}
-                  </button>
-                </div>
-              ) : (
-                <p className="text-gray-800">{value}</p>
-              )}
+              <p className="text-gray-800">{key.toLowerCase() === "password" ? "••••••••" : value}</p>
             </div>
           ))}
         </div>
